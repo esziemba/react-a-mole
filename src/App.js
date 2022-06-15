@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import MoleContainer from './MoleContainer';
+import Controls from './Controls';
 
-function App() {
+
+const App = () => {
+  const [score, setScore] = useState(0)
+  const [start, setStart] = useState(false)
+
+  let hills = []
+
+  for (let i = 0; i < 9; i++) {
+    hills.push(<MoleContainer key={i} setScore={setScore} score={score}  />)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Controls score={score} setScore={setScore} setStart={setStart} />
+      {start ? 
+        <div className='d-flex justify-content-center py-4'>
+          <div id='hills-section' className='d-flex justify-content-evenly flex-wrap'>{hills}</div>
+        </div>
+        : null
+      }
     </div>
   );
 }
